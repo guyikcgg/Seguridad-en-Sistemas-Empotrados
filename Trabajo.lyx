@@ -1,0 +1,910 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language spanish
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Seguridad en Sistemas Empotrados
+\end_layout
+
+\begin_layout Author
+Cristian G Guerrero
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Definición de 
+\emph on
+Sistema Empotrado
+\emph default
+ - Explicar por encima las particularidades que tienen los sistemas empotrados
+ (en especial la ausencia de sistema operativo y de recursos computacionales).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Los sistemas empotrados (también conocidos como sistemas embebidos o 
+\emph on
+embedded system
+\emph default
+s) son sistemas basados en un computador y que están diseñados para realizar
+ una función concreta.
+ Muchos sistemas empotrados llevan a cabo tareas a tiempo real, siendo frecuente
+ su uso en el control de sistemas mecánicos, como ascensores o cadenas de
+ montaje.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "EmbeddedSysDesign"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Además, estos sistemas están presentes en muchos electrodomésticos, como
+ hornos microondas, lavadoras o reproductores de música.
+ En este contexto, también los encontramos en el núcleo de muchos dispositivos
+ cotidianos, como la calculadora, la cámara de fotos o el marcapasos.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Tanenbaum-ModernOS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Podría discutirse si algunos dispositivos como los 
+\emph on
+smartpohnes
+\emph default
+ o las videoconsolas de última generación son también sistemas empotrados.
+ No obstante, estos dispositivos cuentan con un sistema operativo (OS) que
+ les permite ejecutar aplicaciones de terceros bajo demanda del usuario.
+ Por este motivo, estos dispositivos serán considerados en este trabajo
+ como computadores de propósito general, a pesar de compartir algunas caracterís
+ticas con los sistemas empotrados.
+\end_layout
+
+\begin_layout Standard
+Estas son las principales características que consideraremos para decir
+ que un sistema es empotrado:
+\end_layout
+
+\begin_layout Itemize
+Se trata de un sistema electrónico basado en microprocesador (normalmente
+ microcontrolador).
+\end_layout
+
+\begin_layout Itemize
+El sistema está diseñado para llevar a cabo una aplicación o tarea específica,
+ ejecutando un software concreto que es instalado en el proceso de producción.
+ El sistema no está diseñado para ejecutar software de terceros.
+\end_layout
+
+\begin_layout Itemize
+El sistema cuenta con los periféricos necesarios para llevar a cabo su función.
+ El sistema está diseñado para controlar este hardware específico, no permitiend
+o que se añadan nuevos periféricos.
+\end_layout
+
+\begin_layout Itemize
+El sistema puede ser el núcleo de un dispositivo autónomo (como un mando
+ a distancia), o puede formar parte de un sistema mayor (como las distintas
+ unidades de control electrónico de un automóvil).
+\end_layout
+
+\begin_layout Itemize
+Los recursos computacionales suelen ser muy limitados, con el objetivo de
+ abaratar costes.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Este hecho, junto con el 
+\begin_inset Quotes fld
+\end_inset
+
+propósito no general
+\begin_inset Quotes frd
+\end_inset
+
+ de estos sistemas, hace que no tengan sistema operativo (como mucho scheduler
+ o RTOS)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En numerosas ocasiones, las tareas deben ser realizadas en tiempo real,
+ proporcionando respuestas a ciertos eventos en un intervalo de tiempo controlad
+o y reducido.
+ Esto tiene gran relación con la tendencia a usar sistemas empotrados en
+ la implementación de sistemas críticos.
+ Los sistemas críticos deben ser altamente fiables, llevando a cabo su función
+ de forma rigurosa y precisa.
+ En caso de error, un sistema crítico puede desencadenar un fallo general
+ del sistema, incurrir en enormes pérdidas económicas o incluso poner en
+ riesgo la vida de personas.
+\end_layout
+
+\begin_layout Section
+Requisitos de Seguridad en Sistemas Empotrados
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+Antes de entrar en faena, dos cosas:
+\end_layout
+
+\begin_layout Standard
+1.
+ DEBEMOS ASEGURAR MUCHAS COSAS.
+ SEGÚN DESDE QUÉ PUNTO DE VISTA VEAMOS EL SISTEMA, TENEMOS DISTINTOS FRENTES.
+ Before discussing the common security requirements of em- bedded systems,
+ it is important to note that there are many entities involved in a typical
+ embedded system design, manufacturing, and usage chain.
+ Security requirements vary depending on whose perspective we consider.
+ 
+\end_layout
+
+\begin_layout Standard
+2.
+ HEMOS DICHO QUE LOS SISTEMAS EMPOTRADOS SUELEN TENER POCOS RECURSOS.
+ ESO VA A SER UN PROBLEMA.
+ PERO ES QUE ADEMÁS....
+ PUEDEN IR CON BATERÍA!! ESTO COMPLICA LAS COSAS, YA QUE LA SEGURIDAD METE
+ UN OVERHEAD IMPORTANTE (más procesamiento => ir más lento y gastar más
+ batería).
+ 
+\end_layout
+
+\begin_layout Subsection
+Qué debe asegurarse
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Qué se debe asegurar y cuáles son las dificultades (escasa CPU, RAM, batería,
+ etc).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+User identification
+\end_layout
+
+\begin_layout Standard
+refers to the process of validating users before allowing them to use the
+ system.
+ -> relevante en SmartHome (datos de sensores, cerraduras electrónicas)
+ o cualquier aplicación que tenga datos sensibles o que permita el control
+ remoto de algún cacharro.
+\end_layout
+
+\begin_layout Subsubsection
+Secure network access
+\end_layout
+
+\begin_layout Standard
+provides a network connection or service access only if the device is authorized.
+ -> esto es interesante para las empresas, también en los routers (que no
+ se conecte cualquiera)
+\end_layout
+
+\begin_layout Subsubsection
+Secure communications
+\end_layout
+
+\begin_layout Standard
+functions include authenticating communicating peers, ensuring confidentiality
+ and integrity of communicated data, preventing repudiation of a communication
+ transaction, and protecting the identity of communicating entities.
+ -> es lo más evidente: los cacharros deberán identificarse y autenticarse,
+ los mensajes intercambiados deben ser confidenciales (por ejemplo, los
+ datos de un sensor pueden informarnos de si hay alguien en casa o no),
+ integridad de los mensajes (para que nadie nos ponga la calefacción a 200ºC
+ si interceptan un mensaje) y el no repudio (si le hemos dicho al banco
+ que haga una transferencia - tarjeta bancaria, o le hemos enviado un SMS
+ al gato)
+\end_layout
+
+\begin_layout Subsubsection
+Secure storage
+\end_layout
+
+\begin_layout Standard
+mandates confidentiality and integrity of sensitive information stored in
+ the system.
+ -> en el caso de la tarjeta bancaria/DNIe, nadie debería poder acceder
+ a las claves que la identifican o al saldo almacenado (en su caso)
+\end_layout
+
+\begin_layout Subsubsection
+Content security
+\end_layout
+
+\begin_layout Standard
+enforces the usage restrictions of the digital content stored or accessed
+ by the system.
+ -> DRM
+\end_layout
+
+\begin_layout Subsubsection
+Availability
+\end_layout
+
+\begin_layout Standard
+ensures that the system can perform its intended function and service legitimate
+ users at all times, without being disrupted by denial-of- service attacks.
+ -> el sistema que le da de comer al gato no debe quedarse colgado, y la
+ camarita debe funcionar y estar disponible en todo momento (un DoS sería
+ desastroso en este caso)
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ravi2004security"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+PERO TAMBIÉN...
+\end_layout
+
+\begin_layout Subsubsection
+
+\emph on
+Tamper resistance
+\end_layout
+
+\begin_layout Standard
+attacks can exploit vul- nerabilities in the operating system (OS) or applicatio
+n software.
+ attacks manipulate sensitive data or processes (integrity attacks), disclose
+ confidential information (privacy attacks), and/or deny access to system
+ re- sources (availability attacks), it is necessary to develop and deploy
+ various HW/SW countermeasures against these attacks.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+\emph on
+Assurance Gap
+\end_layout
+
+\begin_layout Standard
+It is well known that truly reliable systems are much more difficult to
+ build than those that merely work most of the time.
+ Secure systems face an even greater challenge: they must continue to operate
+ reliably despite attacks.
+ As systems become more complicated, there are inevitably more possible
+ failure modes.
+ PUES NECESITAREMOS VERIFICAR DE ALGÚN MODO!
+\end_layout
+
+\begin_layout Subsection
+Cómo se lleva a cabo
+\end_layout
+
+\begin_layout Subsubsection
+Security protocols 
+\end_layout
+
+\begin_layout Standard
+provide ways of ensuring secure communication channels to and from the embedded
+ system.
+ IPSec [IPSec] and SSL [SSL] are popu- lar examples of security protocols,
+ widely used for Virtual Private Networks (VPNs) and secure web transactions,
+ respectively (we will be examining se- curity protocols in greater detail
+ in Section 5).
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Digital certificates
+\end_layout
+
+\begin_layout Standard
+provide ways of associating identity with an entity, while biometric technologie
+s [Reid 2003] such as fingerprint recognition and voice recognition aid
+ in end-user authentication.
+ Digital signatures, which func- tion as the electronic equivalent of handwritte
+n signatures, can be used to authenticate the source of data as well as
+ verify its identity.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Digital Rights Management (DRM)
+\end_layout
+
+\begin_layout Standard
+protocols, such as OpenIPMP [OpenIPMP], MPEG [MPEG], ISMA [ISMA], and MOSES
+ [MOSES], provide secure frameworks for protecting application content against
+ unauthorized use.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Secure storage and secure execution
+\end_layout
+
+\begin_layout Standard
+require that the architecture of the sys- tem be tailored for security considera
+tions.
+ Simple examples include the use of hardware to monitor bus transactions
+ and block illegal accesses to protected areas in the memory [Discretix],
+ authentication of firmware that executes on the system, application isolation
+ to preserve the privacy and integrity of code and data associated with
+ a given application or process [Lie et al.
+ 2000], HW/SW techniques to preserve the privacy and integrity of data throughou
+t the memory hierarchy [Suh et al.
+ 2003], execution of en- crypted code [Best 1981; Kuhn 1997], and so on.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ravi2004security"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+
+\emph on
+VERIFICACIONES (o al menos criterios de diseño)
+\end_layout
+
+\begin_layout Standard
+Verificaciones estáticas y dinámicas.
+ Existen varios sellos (FIPS-140-2, EAL, MISRA).
+\end_layout
+
+\begin_layout Standard
+Análisis estático: The formal undecidability of most questions of static
+ analysis have led most pro- grammers to conclude that in reviewing code
+ for errors, only a human programmer can take accurate account of the semantics
+ of tests and updates to data structures: that type-checking and data flow
+ analysis are the upper limit of semantic analysis compatible with automation.
+ Our most general conclusion is that this widely-held pessimistic view is
+ mistaken: by adopting the technology of program verification while leaving
+ behind its most quixotic goals, it is possible to build a checker that
+ achieves an unprecedented combination of automatic operation with semantically
+ accurate analysis.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "detlefs1998extended"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FIPS-140: U.S.
+ government computer security standards that specify requirements for cryptograp
+hy modules
+\end_layout
+
+\begin_layout Standard
+EAL: Evaluation Assurance Level, according to Common Criteria (international
+ standard (ISO/IEC 15408) for computer security certification)
+\end_layout
+
+\begin_layout Standard
+MISRA C: a set of software development guidelines for the C programming
+ language developed by MISRA (Motor Industry Software Reliability Association)
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ya hemos definido qué entendemos por un sistema empotrado.
+ También hemos dado algunos ejemplos de estos sistemas.
+ Pero vamos a ir más allá: los sistemas empotrados se usan en tooooddas
+ partes.
+ Además, 
+\noun on
+cada vez están más interconectados
+\noun default
+ (o tienen mayores requisitos de conexión).
+ En concreto, cabe destacar la aparición y la expansión de IoT en los últimos
+ años.
+\end_layout
+
+\begin_layout Standard
+ES EVIDENTE QUE LA SEGURIDAD EN ESTOS SISTEMAS ES MUY IMPORTANTE
+\end_layout
+
+\begin_layout Standard
+Dado el propósito específico de los sistemas empotrados y sus limitados
+ recursos, estos sistemas no suelen contar con un sistema operativo.
+ A lo sumo, se les añade un scheduler o un sistema operativo a tiempo real
+ (RTOS) a fin de controlar la ejecución de tareas en paralelo.
+ Por este motivo
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Para definir mejor qué es un sistema empotrado...
+\end_layout
+
+\begin_layout Itemize
+High-end systems
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Definición:
+\end_layout
+
+\end_inset
+
+Sistemas de altas prestaciones, versátiles
+\end_layout
+
+\begin_layout Itemize
+Ejemplos: SmartPhone, SmartTV
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Características:
+\end_layout
+
+\end_inset
+
+Gran capacidad de procesamiento, suelen tener sistema operativo, pueden
+ ejecutar aplicaciones de terceros
+\end_layout
+
+\begin_layout Itemize
+Seguridad: Parecida a computadores convencionales
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Low-end systems
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Definición:
+\end_layout
+
+\end_inset
+
+Sistemas con prestaciones muy limitadas, diseñados para realizar una tarea
+ específica
+\end_layout
+
+\begin_layout Itemize
+Ejemplos: Calculadora, Router, Centralitas electrónicas en automóviles,
+ Control energético en la industria
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Características:
+\end_layout
+
+\end_inset
+
+Recursos computacionales muy limitados, no cuentanc con sistema operativo
+ (máximo un scheduler sencillo o RTOS), su software es estático (aunque
+ puede ser actualizado)
+\end_layout
+
+\begin_layout Itemize
+Seguridad: Específica en cada sistema, dependiendo de la tarea para la que
+ es diseñado
+\end_layout
+
+\end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Subsection
+Low-end systems
+\end_layout
+
+\begin_layout Plain Layout
+Carecen de OS => no cuentan con las facilidades que un OS aporta: 
+\end_layout
+
+\begin_layout Plain Layout
+Los dispositivos deben ser controlados de forma manual (no hay HAL)
+\end_layout
+
+\begin_layout Plain Layout
+Las interrupciones deben ser gestionadas de forma manual
+\end_layout
+
+\begin_layout Plain Layout
+El cambio entre modo kernel y modo usuario del procesador (cuando existen
+ estos modos) debe ser controlado de forma manual.
+\end_layout
+
+\begin_layout Plain Layout
+El acceso a ficheros
+\end_layout
+
+\begin_layout Plain Layout
+Ejecución del programa
+\end_layout
+
+\begin_layout Plain Layout
+Detección de errores
+\end_layout
+
+\begin_layout Plain Layout
+Monitorización y depuración
+\end_layout
+
+\begin_layout Plain Layout
+El acceso a recursos de red
+\end_layout
+
+\begin_layout Plain Layout
+(puede haber muchas vulnerabilidades: luego hablamos de esto)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Herramientas comerciales para seguridad en empotrados 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(ejemplos concretos del cómo se hace)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+INTRO: La seguridad es cada vez más importante 
+\end_layout
+
+\begin_layout Plain Layout
+Comentar que la seguridad en estos sistemas es cada vez más importante (IoT,
+ móviles, sistemas críticos -> cada vez más numerosos y más conectados).
+\end_layout
+
+\begin_layout Plain Layout
+Actualizaciones remotas del software embebido (routers, gw IoT)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cada vez se tiende a acceder a más recursos (distintos recursos de red,
+ tarjeta de memoria, numerosos sensores, interfaces de usuario complejas,
+ conectividad bluetooth...) => sistemas multitarea 
+\begin_inset Quotes fld
+\end_inset
+
+sin OS!!
+\begin_inset Quotes frd
+\end_inset
+
+ (ejemplos!!)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Herramientas comerciales para seguridad en empotrados (chips para almacenamiento
+ de claves y bibliotecas de seguridad disponibles).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Bibliotecas criptográficas
+\end_layout
+
+\begin_layout Standard
+Alternativas a OpenSSL.
+ Más ligeras, gracias a que pueden elegirse las ciphersuites en tiempo de
+ compilación.
+\end_layout
+
+\begin_layout Standard
+Hablar brevemente de mi experiencia con las bibliotecas y chips que he usado
+ (características, requisitos en cuanto a recursos, opciones de configuración,
+ etc).
+\end_layout
+
+\begin_layout Subsubsection
+WolfSSL
+\end_layout
+
+\begin_layout Standard
+A version of the wolfCrypt cryptography library has been FIPS 140-2 validated
+ (Certificate #2425).
+\end_layout
+
+\begin_layout Subsubsection
+mbedTLS
+\end_layout
+
+\begin_layout Subsection
+Chips criptográficos
+\end_layout
+
+\begin_layout Subsubsection
+OptigaTrust
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Quotes fld
+\end_inset
+
+Tecnología de computadores
+\begin_inset Quotes frd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+ARM TrustZone
+\end_layout
+
+\begin_layout Subsection
+Sistemas operativos embebidos
+\end_layout
+
+\begin_layout Subsubsection
+Integrity
+\end_layout
+
+\begin_layout Standard
+POSIX real-time operating system (RTOS) by Green Hills Software (Santa Barbara,
+ California, United States).
+ Integrity-178B was certified to Common Criteria Evaluation Assurance Level
+ (EAL) 6+.
+ Based on Multiple Independent Levels of Security (MILS)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+2.2.1 Information Flow Information cannot flow between partitioned applications
+ unless explicitly permitted by the system security policy.
+\end_layout
+
+\begin_layout Plain Layout
+2.2.2 Data Isolation Data within partitioned applications cannot be read or
+ modified by other applications.
+\end_layout
+
+\begin_layout Plain Layout
+2.2.3 Damage Limitation If a bug or attack damages a partitioned application,
+ this damage cannot spread to other applications.
+\end_layout
+
+\begin_layout Plain Layout
+2.2.4 Periods Processing Periods processing is a policy that ensures that
+ information within one component is not leaked into another component through
+ resources, such as kernel-managed memory buffers and CPU registers, which
+ may be reused across execution periods.
+ For example, if component A stores private information in a memory page
+ and then releases that memory page back to the operating system kernel,
+ the kernel must ensure that the page is cleared before it can be reused
+ by another component B requesting a memory page allocation (see Figure
+ 2.1).
+ Similarly, if microprocessor registers are written with data during A’s
+ execution, the operating system must ensure that these register values
+ are cleared when context switching to B on the same core.
+ Without periods processing, the confidentiality of A’s information would
+ be violated by disclosure of information to B through these computer resources.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Nuevos avances y Futuro
+\end_layout
+
+\begin_layout Standard
+[Si me da tiempo] Mencionar rápidamente algunos avances en hardware específico
+ para criptografía.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "SistemasEmpotrados"
+options "bibtotoc,unsrt"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
