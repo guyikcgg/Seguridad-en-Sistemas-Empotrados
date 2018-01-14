@@ -455,25 +455,60 @@ mandates confidentiality and integrity of sensitive information stored in
 \end_layout
 
 \begin_layout Subsubsection
-Content security
+Seguridad del contenido
 \end_layout
 
 \begin_layout Standard
+La seguridad del contenido impone restricciones sobre el acceso o almacenamiento
+ de contenido digital.
+ De este modo, el usuario de una 
+\emph on
+SmartTV
+\emph default
+ solo debería poder acceder al contenido contratado, y no debería poder
+ realizar copias ilegales del contenido visualizado.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 enforces the usage restrictions of the digital content stored or accessed
  by the system.
  -> DRM
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
-Availability
+Disponibilidad
 \end_layout
 
 \begin_layout Standard
+Debe garantizarse que el sistema pueda realizar la función para la que fue
+ diseñado y dar servicio a los usuarios legítimos en todo momento, no interrumpi
+éndose a causa de ataques de denegación de servicio (DoS).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 ensures that the system can perform its intended function and service legitimate
  users at all times, without being disrupted by denial-of- service attacks.
  -> el sistema que le da de comer al gato no debe quedarse colgado, y la
  camarita debe funcionar y estar disponible en todo momento (un DoS sería
  desastroso en este caso)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -487,16 +522,44 @@ key "ravi2004security"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 PERO TAMBIÉN...
 \end_layout
 
-\begin_layout Subsubsection
+\end_inset
 
-\emph on
-Tamper resistance
+
 \end_layout
 
-\begin_layout Standard
+\begin_layout Subsubsection
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsubsection
+Resistencia a la manipulación 
+\emph on
+(Tamper resistance)
+\end_layout
+
+\begin_layout Plain Layout
+Los ataques perpetrados contra los sistemas empotrados pueden explotar vulneravi
+lidades a distintos niveles, incluyendo aquellas presentes en el sistema
+ operativo y las aplicaciones.
+ Estos ataques pueden manipular datos o procesos sensibles (ataques a la
+ integridad), revelar información confidencial (ataques a la privacidad)
+ o denegar el acceso a los recursos del sistema (ataques a la disponibilidad).
+ Por tanto, es necesario desarrollar y desplegar diversas medidas contra
+ estos ataques, tanto a nivel software como a nivel hardware.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 attacks can exploit vul- nerabilities in the operating system (OS) or applicatio
 n software.
  attacks manipulate sensitive data or processes (integrity attacks), disclose
@@ -506,13 +569,41 @@ n software.
  
 \end_layout
 
-\begin_layout Subsubsection
+\end_inset
 
-\emph on
-Assurance Gap
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Fiabilidad del sistema
 \end_layout
 
 \begin_layout Standard
+Para decir que un sistema es realmente fiable, no basta con que este funcione
+ de forma correcta la mayor parte del tiempo, sino que debe verificarse
+ que su funcionamiento es el esperado en todo momento.
+ Si además el sistema ha de ser seguro, este debe seguir funcionando incluso
+ cuando es sometido a ataques de seguridad.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+La implementación y testeo de sistemas altamente fiables son mucho más complejas
+ que las de aquellos sistemas que simplemente funcionan correctamente la
+ mayor parte del tiempo.
+ Los sistemas seguros se enfrentan a un desafío aún mayor: deben operar
+ de forma fiable incluso cuando 
+\end_layout
+
+\begin_layout Plain Layout
 It is well known that truly reliable systems are much more difficult to
  build than those that merely work most of the time.
  Secure systems face an even greater challenge: they must continue to operate
@@ -520,6 +611,11 @@ It is well known that truly reliable systems are much more difficult to
  As systems become more complicated, there are inevitably more possible
  failure modes.
  PUES NECESITAREMOS VERIFICAR DE ALGÚN MODO!
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -928,6 +1024,12 @@ A version of the wolfCrypt cryptography library has been FIPS 140-2 validated
 mbedTLS
 \end_layout
 
+\begin_layout Standard
+Es la biblioteca de seguridad del proyecto mbed de ARM.
+ Este proyecto trata de poner en conjunto una serie de herramientas para
+ el desarrollo ágil de sistemas empotrados, incluyendo IoT.
+\end_layout
+
 \begin_layout Subsection
 Chips criptográficos
 \end_layout
@@ -936,15 +1038,33 @@ Chips criptográficos
 OptigaTrust
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+OptigaTrust(R) es un chip de seguridad de Infineon Technologies que es capaz
+ de almacenar un certificado
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ y una clave privada
+\end_layout
+
+\end_inset
+
+ de forma segura.
+ Una vez se ha 
 \begin_inset Quotes fld
 \end_inset
 
-Tecnología de computadores
+programado
 \begin_inset Quotes frd
 \end_inset
 
+, el certificado solo puede leerse, pero no modificarse.
+ 
+\end_layout
 
+\begin_layout Subsection
+Arquitectura de computadores
 \end_layout
 
 \begin_layout Subsubsection
