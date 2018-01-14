@@ -230,6 +230,21 @@ Requisitos de Seguridad en Sistemas Empotrados
 \end_layout
 
 \begin_layout Standard
+Para entender mejor qué elementos deben asegurarse en un sistema empotrado,
+ tenemos que tener en cuenta que existen diversas entidades implicadas en
+ el desarrollo, fabricación y uso del producto.
+ Esto quiere decir que los requisitos de seguridad dependerán de la perspectiva
+ desde la que se vea el sistema.
+ En este sentido, el usuario estará interesado en mantener la confidencialidad
+ y la integridad de los datos que almacena o transmite haciendo uso del
+ sistema, mientras que el proveedor de hardware tratará de proteger la propiedad
+ intelectual de los módulos provistos al diseñador del dispositivo.
+ A pesar de estas diferencias y de los intereses de las distintas partes,
+ existe una serie de requisitos generales que deben tenerse en cuenta a
+ la hora de diseñar la seguridad del sistema.
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset line
 LatexCommand rule
 offset "0.5ex"
@@ -242,6 +257,10 @@ Antes de entrar en faena, dos cosas:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 1.
  DEBEMOS ASEGURAR MUCHAS COSAS.
  SEGÚN DESDE QUÉ PUNTO DE VISTA VEAMOS EL SISTEMA, TENEMOS DISTINTOS FRENTES.
@@ -250,6 +269,11 @@ Antes de entrar en faena, dos cosas:
  embedded system design, manufacturing, and usage chain.
  Security requirements vary depending on whose perspective we consider.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -264,7 +288,7 @@ Antes de entrar en faena, dos cosas:
 \end_layout
 
 \begin_layout Subsection
-Qué debe asegurarse
+Requisitos generales de seguridad
 \end_layout
 
 \begin_layout Standard
@@ -283,32 +307,109 @@ Qué se debe asegurar y cuáles son las dificultades (escasa CPU, RAM, batería,
 \end_layout
 
 \begin_layout Subsubsection
-User identification
+Identificación de usuarios
 \end_layout
 
 \begin_layout Standard
-refers to the process of validating users before allowing them to use the
- system.
- -> relevante en SmartHome (datos de sensores, cerraduras electrónicas)
- o cualquier aplicación que tenga datos sensibles o que permita el control
- remoto de algún cacharro.
+Se trata del proceso de validar a los usuarios antes de permitirles usar
+ es sitema.
+ Este requisito es fundamental cuando el sistema proporciona el acceso a
+ datos sensibles (como los valores de sensores en un 
+\emph on
+SmartHome
+\emph default
+), a servicios restringidos (como llamadas telefónicas) o permite el control
+ de otro sistema (como una cerradura electrónica o la calefacción).
+\end_layout
+
+\begin_layout Standard
+La identificación de usuarios es especialmente importante cuando el sistema
+ empotrado puede ser accedido por personas no autorizadas con facilidad,
+ como son aquellos que están conectados a Internet.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+relevante en SmartHome (datos de sensores, cerraduras electrónicas) o cualquier
+ aplicación que tenga datos sensibles o que permita el control remoto de
+ algún cacharro.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
-Secure network access
+Acceso seguro a la red
 \end_layout
 
 \begin_layout Standard
+Consiste en proporcionar acceso a una conexión de red o aun servicio solo
+ si el dispositivo está autorizado.
+ Por ejemplo, un router doméstico no debería permitir el acceso a ningún
+ dispositivo que haya sido autorizado a usar la red.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 provides a network connection or service access only if the device is authorized.
  -> esto es interesante para las empresas, también en los routers (que no
  se conecte cualquiera)
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
-Secure communications
+Comunicación segura
 \end_layout
 
 \begin_layout Standard
+La comunicación segura incluye varias funciones:
+\end_layout
+
+\begin_layout Enumerate
+Autenticar las partes a los extremos de la comunicación, ya sean personas
+ o sistemas informáticos.
+\end_layout
+
+\begin_layout Enumerate
+Garantizar la confidencialidad de los datos comunicados, evitando que puedan
+ ser leídos por entidades no autorizadas.
+\end_layout
+
+\begin_layout Enumerate
+Garantizar la integridad de los datos comunicados, evitando que puedan ser
+ modificados por entidades no autorizadas.
+\end_layout
+
+\begin_layout Enumerate
+Evitar el repudio de transacciones.
+\end_layout
+
+\begin_layout Enumerate
+Proteger la identidad de las entidades que establecen la comunicación.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Tal vez este es el primer requisito que se nos viene a la cabeza cuando
+ hablamos de seguridad.
+\end_layout
+
+\begin_layout Plain Layout
 functions include authenticating communicating peers, ensuring confidentiality
  and integrity of communicated data, preventing repudiation of a communication
  transaction, and protecting the identity of communicating entities.
@@ -321,15 +422,36 @@ functions include authenticating communicating peers, ensuring confidentiality
  al gato)
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
-Secure storage
+Almacenamiento seguro de datos
 \end_layout
 
 \begin_layout Standard
+Consiste en asegurar la confidencialidad y la integridad de la información
+ sensible almacenada en el sistema.
+ Por ejemplo, en el caso de una tarjeta bancaria, solo el usuario debería
+ poder modificar la clave, y solo el banco debería poder modificar el saldo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 mandates confidentiality and integrity of sensitive information stored in
  the system.
  -> en el caso de la tarjeta bancaria/DNIe, nadie debería poder acceder
  a las claves que la identifican o al saldo almacenado (en su caso)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
